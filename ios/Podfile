@@ -23,6 +23,11 @@ target 'OnlyAff' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
+  # For extensions without React dependencies
+  pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
+
   target 'OnlyAffTests' do
     inherit! :complete
     # Pods for testing

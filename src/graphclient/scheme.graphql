@@ -1,0 +1,1838 @@
+type CampaignCountAggregate {
+    id: Int!
+    createdAt: Int!
+    updatedAt: Int!
+    name: Int!
+    description: Int!
+    bannerFileKey: Int!
+    _all: Int!
+}
+
+type CampaignMaxAggregate {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    description: String
+    bannerFileKey: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type CampaignMinAggregate {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    description: String
+    bannerFileKey: String
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+"""
+type Campaign {
+    id: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    name: String!
+    description: String
+    bannerFileKey: String
+    bannerFile: File
+    products(where: TiktokProductWhereInput, orderBy: [TiktokProductOrderByWithRelationInput!], cursor: TiktokProductWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductScalarFieldEnum!]): [TiktokProduct!]
+}
+
+input TiktokProductWhereInput {
+    AND: [TiktokProductWhereInput!]
+    OR: [TiktokProductWhereInput!]
+    NOT: [TiktokProductWhereInput!]
+    id: StringFilter
+    affiliateLink: StringNullableFilter
+    title: StringFilter
+    soldCount: IntFilter
+    rating: FloatFilter
+    reviewCount: IntFilter
+    reviewItems: JsonNullableListFilter
+    descDetail: StringFilter
+    commissionPercent: IntNullableFilter
+    sellerId: StringFilter
+    price: TiktokProductPriceNullableRelationFilter
+    images: TiktokProductImageListRelationFilter
+    specifications: TiktokProductSpecListRelationFilter
+    campaings: CampaignListRelationFilter
+    categories: CategoryListRelationFilter
+    seller: TiktokSellerRelationFilter
+}
+
+input StringFilter {
+    equals: String
+    in: [String!]
+    notIn: [String!]
+    lt: String
+    lte: String
+    gt: String
+    gte: String
+    contains: String
+    startsWith: String
+    endsWith: String
+    mode: QueryMode
+    not: NestedStringFilter
+}
+
+enum QueryMode {
+    default
+    insensitive
+}
+
+input NestedStringFilter {
+    equals: String
+    in: [String!]
+    notIn: [String!]
+    lt: String
+    lte: String
+    gt: String
+    gte: String
+    contains: String
+    startsWith: String
+    endsWith: String
+    not: NestedStringFilter
+}
+
+input StringNullableFilter {
+    equals: String
+    in: [String!]
+    notIn: [String!]
+    lt: String
+    lte: String
+    gt: String
+    gte: String
+    contains: String
+    startsWith: String
+    endsWith: String
+    mode: QueryMode
+    not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+    equals: String
+    in: [String!]
+    notIn: [String!]
+    lt: String
+    lte: String
+    gt: String
+    gte: String
+    contains: String
+    startsWith: String
+    endsWith: String
+    not: NestedStringNullableFilter
+}
+
+input IntFilter {
+    equals: Int
+    in: [Int!]
+    notIn: [Int!]
+    lt: Int
+    lte: Int
+    gt: Int
+    gte: Int
+    not: NestedIntFilter
+}
+
+input NestedIntFilter {
+    equals: Int
+    in: [Int!]
+    notIn: [Int!]
+    lt: Int
+    lte: Int
+    gt: Int
+    gte: Int
+    not: NestedIntFilter
+}
+
+input FloatFilter {
+    equals: Float
+    in: [Float!]
+    notIn: [Float!]
+    lt: Float
+    lte: Float
+    gt: Float
+    gte: Float
+    not: NestedFloatFilter
+}
+
+input NestedFloatFilter {
+    equals: Float
+    in: [Float!]
+    notIn: [Float!]
+    lt: Float
+    lte: Float
+    gt: Float
+    gte: Float
+    not: NestedFloatFilter
+}
+
+input JsonNullableListFilter {
+    equals: [JSON!]
+    has: JSON
+    hasEvery: [JSON!]
+    hasSome: [JSON!]
+    isEmpty: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input IntNullableFilter {
+    equals: Int
+    in: [Int!]
+    notIn: [Int!]
+    lt: Int
+    lte: Int
+    gt: Int
+    gte: Int
+    not: NestedIntNullableFilter
+}
+
+input NestedIntNullableFilter {
+    equals: Int
+    in: [Int!]
+    notIn: [Int!]
+    lt: Int
+    lte: Int
+    gt: Int
+    gte: Int
+    not: NestedIntNullableFilter
+}
+
+input TiktokProductPriceNullableRelationFilter {
+    is: TiktokProductPriceWhereInput
+    isNot: TiktokProductPriceWhereInput
+}
+
+input TiktokProductPriceWhereInput {
+    AND: [TiktokProductPriceWhereInput!]
+    OR: [TiktokProductPriceWhereInput!]
+    NOT: [TiktokProductPriceWhereInput!]
+    id: StringFilter
+    productId: StringFilter
+    minSkuPrice: DecimalFilter
+    maxSkuPrice: DecimalNullableFilter
+    minOriginalSkuPrice: DecimalFilter
+    maxOriginalSkuPrice: DecimalNullableFilter
+    currency: StringFilter
+    currencySymbol: StringFilter
+    isIntervalPrice: BoolFilter
+    originalPriceText: StringFilter
+    realPriceText: StringFilter
+    discountText: StringFilter
+    product: TiktokProductRelationFilter
+}
+
+input DecimalFilter {
+    equals: Decimal
+    in: [Decimal!]
+    notIn: [Decimal!]
+    lt: Decimal
+    lte: Decimal
+    gt: Decimal
+    gte: Decimal
+    not: NestedDecimalFilter
+}
+
+"""An arbitrary-precision Decimal type"""
+scalar Decimal
+
+input NestedDecimalFilter {
+    equals: Decimal
+    in: [Decimal!]
+    notIn: [Decimal!]
+    lt: Decimal
+    lte: Decimal
+    gt: Decimal
+    gte: Decimal
+    not: NestedDecimalFilter
+}
+
+input DecimalNullableFilter {
+    equals: Decimal
+    in: [Decimal!]
+    notIn: [Decimal!]
+    lt: Decimal
+    lte: Decimal
+    gt: Decimal
+    gte: Decimal
+    not: NestedDecimalNullableFilter
+}
+
+input NestedDecimalNullableFilter {
+    equals: Decimal
+    in: [Decimal!]
+    notIn: [Decimal!]
+    lt: Decimal
+    lte: Decimal
+    gt: Decimal
+    gte: Decimal
+    not: NestedDecimalNullableFilter
+}
+
+input BoolFilter {
+    equals: Boolean
+    not: NestedBoolFilter
+}
+
+input NestedBoolFilter {
+    equals: Boolean
+    not: NestedBoolFilter
+}
+
+input TiktokProductRelationFilter {
+    is: TiktokProductWhereInput
+    isNot: TiktokProductWhereInput
+}
+
+input TiktokProductImageListRelationFilter {
+    every: TiktokProductImageWhereInput
+    some: TiktokProductImageWhereInput
+    none: TiktokProductImageWhereInput
+}
+
+input TiktokProductImageWhereInput {
+    AND: [TiktokProductImageWhereInput!]
+    OR: [TiktokProductImageWhereInput!]
+    NOT: [TiktokProductImageWhereInput!]
+    id: StringFilter
+    height: IntFilter
+    width: IntFilter
+    thumbUrlList: StringNullableListFilter
+    urlList: StringNullableListFilter
+    productId: StringFilter
+    product: TiktokProductRelationFilter
+}
+
+input StringNullableListFilter {
+    equals: [String!]
+    has: String
+    hasEvery: [String!]
+    hasSome: [String!]
+    isEmpty: Boolean
+}
+
+input TiktokProductSpecListRelationFilter {
+    every: TiktokProductSpecWhereInput
+    some: TiktokProductSpecWhereInput
+    none: TiktokProductSpecWhereInput
+}
+
+input TiktokProductSpecWhereInput {
+    AND: [TiktokProductSpecWhereInput!]
+    OR: [TiktokProductSpecWhereInput!]
+    NOT: [TiktokProductSpecWhereInput!]
+    id: StringFilter
+    name: StringFilter
+    value: StringFilter
+    productId: StringFilter
+    product: TiktokProductRelationFilter
+}
+
+input CampaignListRelationFilter {
+    every: CampaignWhereInput
+    some: CampaignWhereInput
+    none: CampaignWhereInput
+}
+
+input CampaignWhereInput {
+    AND: [CampaignWhereInput!]
+    OR: [CampaignWhereInput!]
+    NOT: [CampaignWhereInput!]
+    id: StringFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    name: StringFilter
+    description: StringNullableFilter
+    bannerFileKey: StringNullableFilter
+    bannerFile: FileNullableRelationFilter
+    products: TiktokProductListRelationFilter
+}
+
+input DateTimeFilter {
+    equals: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
+    not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+    equals: DateTime
+    in: [DateTime!]
+    notIn: [DateTime!]
+    lt: DateTime
+    lte: DateTime
+    gt: DateTime
+    gte: DateTime
+    not: NestedDateTimeFilter
+}
+
+input FileNullableRelationFilter {
+    is: FileWhereInput
+    isNot: FileWhereInput
+}
+
+input FileWhereInput {
+    AND: [FileWhereInput!]
+    OR: [FileWhereInput!]
+    NOT: [FileWhereInput!]
+    key: StringFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    filename: StringFilter
+    size: IntFilter
+    mimetype: StringFilter
+}
+
+input TiktokProductListRelationFilter {
+    every: TiktokProductWhereInput
+    some: TiktokProductWhereInput
+    none: TiktokProductWhereInput
+}
+
+input CategoryListRelationFilter {
+    every: CategoryWhereInput
+    some: CategoryWhereInput
+    none: CategoryWhereInput
+}
+
+input CategoryWhereInput {
+    AND: [CategoryWhereInput!]
+    OR: [CategoryWhereInput!]
+    NOT: [CategoryWhereInput!]
+    id: StringFilter
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    name: StringFilter
+    description: StringNullableFilter
+    imageFileKey: StringNullableFilter
+    imageFile: FileNullableRelationFilter
+    products: TiktokProductListRelationFilter
+}
+
+input TiktokSellerRelationFilter {
+    is: TiktokSellerWhereInput
+    isNot: TiktokSellerWhereInput
+}
+
+input TiktokSellerWhereInput {
+    AND: [TiktokSellerWhereInput!]
+    OR: [TiktokSellerWhereInput!]
+    NOT: [TiktokSellerWhereInput!]
+    id: StringFilter
+    name: StringFilter
+    avatar: JsonFilter
+    productCount: IntFilter
+    link: StringFilter
+    imSchema: StringFilter
+    shopRecommendIsRecommend: BoolFilter
+    isHide: BoolFilter
+    originalData: JsonFilter
+    products: TiktokProductListRelationFilter
+}
+
+input JsonFilter {
+    equals: JSON
+    path: [String!]
+    string_contains: String
+    string_starts_with: String
+    string_ends_with: String
+    array_contains: JSON
+    array_starts_with: JSON
+    array_ends_with: JSON
+    lt: JSON
+    lte: JSON
+    gt: JSON
+    gte: JSON
+    not: JSON
+}
+
+input TiktokProductOrderByWithRelationInput {
+    id: SortOrder
+    affiliateLink: SortOrderInput
+    title: SortOrder
+    soldCount: SortOrder
+    rating: SortOrder
+    reviewCount: SortOrder
+    reviewItems: SortOrder
+    descDetail: SortOrder
+    commissionPercent: SortOrderInput
+    sellerId: SortOrder
+    price: TiktokProductPriceOrderByWithRelationInput
+    images: TiktokProductImageOrderByRelationAggregateInput
+    specifications: TiktokProductSpecOrderByRelationAggregateInput
+    campaings: CampaignOrderByRelationAggregateInput
+    categories: CategoryOrderByRelationAggregateInput
+    seller: TiktokSellerOrderByWithRelationInput
+}
+
+enum SortOrder {
+    asc
+    desc
+}
+
+input SortOrderInput {
+    sort: SortOrder!
+    nulls: NullsOrder
+}
+
+enum NullsOrder {
+    first
+    last
+}
+
+input TiktokProductPriceOrderByWithRelationInput {
+    id: SortOrder
+    productId: SortOrder
+    minSkuPrice: SortOrder
+    maxSkuPrice: SortOrderInput
+    minOriginalSkuPrice: SortOrder
+    maxOriginalSkuPrice: SortOrderInput
+    currency: SortOrder
+    currencySymbol: SortOrder
+    isIntervalPrice: SortOrder
+    originalPriceText: SortOrder
+    realPriceText: SortOrder
+    discountText: SortOrder
+    product: TiktokProductOrderByWithRelationInput
+}
+
+input TiktokProductImageOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input TiktokProductSpecOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input CampaignOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input CategoryOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input TiktokSellerOrderByWithRelationInput {
+    id: SortOrder
+    name: SortOrder
+    avatar: SortOrder
+    productCount: SortOrder
+    link: SortOrder
+    imSchema: SortOrder
+    shopRecommendIsRecommend: SortOrder
+    isHide: SortOrder
+    originalData: SortOrder
+    products: TiktokProductOrderByRelationAggregateInput
+}
+
+input TiktokProductOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input TiktokProductWhereUniqueInput {
+    id: String
+    AND: [TiktokProductWhereInput!]
+    OR: [TiktokProductWhereInput!]
+    NOT: [TiktokProductWhereInput!]
+    affiliateLink: StringNullableFilter
+    title: StringFilter
+    soldCount: IntFilter
+    rating: FloatFilter
+    reviewCount: IntFilter
+    reviewItems: JsonNullableListFilter
+    descDetail: StringFilter
+    commissionPercent: IntNullableFilter
+    sellerId: StringFilter
+    price: TiktokProductPriceNullableRelationFilter
+    images: TiktokProductImageListRelationFilter
+    specifications: TiktokProductSpecListRelationFilter
+    campaings: CampaignListRelationFilter
+    categories: CategoryListRelationFilter
+    seller: TiktokSellerRelationFilter
+}
+
+enum TiktokProductScalarFieldEnum {
+    id
+    affiliateLink
+    title
+    soldCount
+    rating
+    reviewCount
+    reviewItems
+    descDetail
+    commissionPercent
+    sellerId
+}
+
+type CategoryCountAggregate {
+    id: Int!
+    createdAt: Int!
+    updatedAt: Int!
+    name: Int!
+    description: Int!
+    imageFileKey: Int!
+    _all: Int!
+}
+
+type CategoryMaxAggregate {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    description: String
+    imageFileKey: String
+}
+
+type CategoryMinAggregate {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    description: String
+    imageFileKey: String
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+"""
+type Category {
+    id: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    name: String!
+    description: String
+    imageFileKey: String
+    imageFile: File
+    products(where: TiktokProductWhereInput, orderBy: [TiktokProductOrderByWithRelationInput!], cursor: TiktokProductWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductScalarFieldEnum!]): [TiktokProduct!]
+}
+
+type FileAvgAggregate {
+    size: Float
+}
+
+type FileCountAggregate {
+    key: Int!
+    createdAt: Int!
+    updatedAt: Int!
+    filename: Int!
+    size: Int!
+    mimetype: Int!
+    _all: Int!
+}
+
+type FileMaxAggregate {
+    key: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+type FileMinAggregate {
+    key: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+type FileSumAggregate {
+    size: Int
+}
+
+"""
+@@allow('create,read', true)
+@@allow('update,delete', auth().roles?[key == 'ADMIN'])
+"""
+type File {
+    key: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    filename: String!
+    size: Int!
+    mimetype: String!
+    categories(where: CategoryWhereInput, orderBy: [CategoryOrderByWithRelationInput!], cursor: CategoryWhereUniqueInput, take: Int, skip: Int, distinct: [CategoryScalarFieldEnum!]): [Category!]!
+    campaigns(where: CampaignWhereInput, orderBy: [CampaignOrderByWithRelationInput!], cursor: CampaignWhereUniqueInput, take: Int, skip: Int, distinct: [CampaignScalarFieldEnum!]): [Campaign!]!
+}
+
+input CategoryOrderByWithRelationInput {
+    id: SortOrder
+    createdAt: SortOrder
+    updatedAt: SortOrder
+    name: SortOrder
+    description: SortOrderInput
+    imageFileKey: SortOrderInput
+    imageFile: FileOrderByWithRelationInput
+    products: TiktokProductOrderByRelationAggregateInput
+}
+
+input FileOrderByWithRelationInput {
+    key: SortOrder
+    createdAt: SortOrder
+    updatedAt: SortOrder
+    filename: SortOrder
+    size: SortOrder
+    mimetype: SortOrder
+}
+
+input CategoryWhereUniqueInput {
+    id: String
+    AND: [CategoryWhereInput!]
+    OR: [CategoryWhereInput!]
+    NOT: [CategoryWhereInput!]
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    name: StringFilter
+    description: StringNullableFilter
+    imageFileKey: StringNullableFilter
+    imageFile: FileNullableRelationFilter
+    products: TiktokProductListRelationFilter
+}
+
+enum CategoryScalarFieldEnum {
+    id
+    createdAt
+    updatedAt
+    name
+    description
+    imageFileKey
+}
+
+input CampaignOrderByWithRelationInput {
+    id: SortOrder
+    createdAt: SortOrder
+    updatedAt: SortOrder
+    name: SortOrder
+    description: SortOrderInput
+    bannerFileKey: SortOrderInput
+    bannerFile: FileOrderByWithRelationInput
+    products: TiktokProductOrderByRelationAggregateInput
+}
+
+input CampaignWhereUniqueInput {
+    id: String
+    AND: [CampaignWhereInput!]
+    OR: [CampaignWhereInput!]
+    NOT: [CampaignWhereInput!]
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    name: StringFilter
+    description: StringNullableFilter
+    bannerFileKey: StringNullableFilter
+    bannerFile: FileNullableRelationFilter
+    products: TiktokProductListRelationFilter
+}
+
+enum CampaignScalarFieldEnum {
+    id
+    createdAt
+    updatedAt
+    name
+    description
+    bannerFileKey
+}
+
+type AffectedRows {
+    count: Int!
+}
+
+type RoleCountAggregate {
+    key: Int!
+    _all: Int!
+}
+
+type RoleMaxAggregate {
+    key: RoleKey
+}
+
+enum RoleKey {
+    ADMIN
+    INFLUENCER
+    SELLER
+}
+
+type RoleMinAggregate {
+    key: RoleKey
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+@HideOperations all
+"""
+type Role {
+    key: RoleKey!
+    users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]
+}
+
+input UserWhereInput {
+    AND: [UserWhereInput!]
+    OR: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    id: StringFilter
+    name: StringFilter
+    email: StringFilter
+    roles: RoleListRelationFilter
+}
+
+input RoleListRelationFilter {
+    every: RoleWhereInput
+    some: RoleWhereInput
+    none: RoleWhereInput
+}
+
+input RoleWhereInput {
+    AND: [RoleWhereInput!]
+    OR: [RoleWhereInput!]
+    NOT: [RoleWhereInput!]
+    key: EnumRoleKeyFilter
+    users: UserListRelationFilter
+}
+
+input EnumRoleKeyFilter {
+    equals: RoleKey
+    in: [RoleKey!]
+    notIn: [RoleKey!]
+    not: NestedEnumRoleKeyFilter
+}
+
+input NestedEnumRoleKeyFilter {
+    equals: RoleKey
+    in: [RoleKey!]
+    notIn: [RoleKey!]
+    not: NestedEnumRoleKeyFilter
+}
+
+input UserListRelationFilter {
+    every: UserWhereInput
+    some: UserWhereInput
+    none: UserWhereInput
+}
+
+input UserOrderByWithRelationInput {
+    id: SortOrder
+    name: SortOrder
+    email: SortOrder
+    roles: RoleOrderByRelationAggregateInput
+}
+
+input RoleOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input UserWhereUniqueInput {
+    id: String
+    AND: [UserWhereInput!]
+    OR: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    name: StringFilter
+    email: StringFilter
+    roles: RoleListRelationFilter
+}
+
+enum UserScalarFieldEnum {
+    id
+    name
+    email
+}
+
+type TiktokProductAvgAggregate {
+    soldCount: Float
+    rating: Float
+    reviewCount: Float
+    commissionPercent: Float
+}
+
+type TiktokProductCountAggregate {
+    id: Int!
+    affiliateLink: Int!
+    title: Int!
+    soldCount: Int!
+    rating: Int!
+    reviewCount: Int!
+    reviewItems: Int!
+    descDetail: Int!
+    commissionPercent: Int!
+    sellerId: Int!
+    _all: Int!
+}
+
+type TiktokProductMaxAggregate {
+    id: String
+    affiliateLink: String
+    title: String
+    soldCount: Int
+    rating: Float
+    reviewCount: Int
+    descDetail: String
+    commissionPercent: Int
+    sellerId: String
+}
+
+type TiktokProductMinAggregate {
+    id: String
+    affiliateLink: String
+    title: String
+    soldCount: Int
+    rating: Float
+    reviewCount: Int
+    descDetail: String
+    commissionPercent: Int
+    sellerId: String
+}
+
+type TiktokProductSumAggregate {
+    soldCount: Int
+    rating: Float
+    reviewCount: Int
+    commissionPercent: Int
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+@HideOperations create,update
+"""
+type TiktokProduct {
+    id: String!
+    affiliateLink: String
+    title: String!
+    soldCount: Int!
+    rating: Float!
+    reviewCount: Int!
+    reviewItems: [JSON!]
+    descDetail: String!
+    commissionPercent: Int
+    sellerId: String!
+    price: TiktokProductPrice
+    images(where: TiktokProductImageWhereInput, orderBy: [TiktokProductImageOrderByWithRelationInput!], cursor: TiktokProductImageWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductImageScalarFieldEnum!]): [TiktokProductImage!]
+    specifications(where: TiktokProductSpecWhereInput, orderBy: [TiktokProductSpecOrderByWithRelationInput!], cursor: TiktokProductSpecWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductSpecScalarFieldEnum!]): [TiktokProductSpec!]
+    campaings(where: CampaignWhereInput, orderBy: [CampaignOrderByWithRelationInput!], cursor: CampaignWhereUniqueInput, take: Int, skip: Int, distinct: [CampaignScalarFieldEnum!]): [Campaign!]
+    categories(where: CategoryWhereInput, orderBy: [CategoryOrderByWithRelationInput!], cursor: CategoryWhereUniqueInput, take: Int, skip: Int, distinct: [CategoryScalarFieldEnum!]): [Category!]
+    seller: TiktokSeller!
+}
+
+input TiktokProductImageOrderByWithRelationInput {
+    id: SortOrder
+    height: SortOrder
+    width: SortOrder
+    thumbUrlList: SortOrder
+    urlList: SortOrder
+    productId: SortOrder
+    product: TiktokProductOrderByWithRelationInput
+}
+
+input TiktokProductImageWhereUniqueInput {
+    id: String
+    AND: [TiktokProductImageWhereInput!]
+    OR: [TiktokProductImageWhereInput!]
+    NOT: [TiktokProductImageWhereInput!]
+    height: IntFilter
+    width: IntFilter
+    thumbUrlList: StringNullableListFilter
+    urlList: StringNullableListFilter
+    productId: StringFilter
+    product: TiktokProductRelationFilter
+}
+
+enum TiktokProductImageScalarFieldEnum {
+    id
+    height
+    width
+    thumbUrlList
+    urlList
+    productId
+}
+
+input TiktokProductSpecOrderByWithRelationInput {
+    id: SortOrder
+    name: SortOrder
+    value: SortOrder
+    productId: SortOrder
+    product: TiktokProductOrderByWithRelationInput
+}
+
+input TiktokProductSpecWhereUniqueInput {
+    id: String
+    AND: [TiktokProductSpecWhereInput!]
+    OR: [TiktokProductSpecWhereInput!]
+    NOT: [TiktokProductSpecWhereInput!]
+    name: StringFilter
+    value: StringFilter
+    productId: StringFilter
+    product: TiktokProductRelationFilter
+}
+
+enum TiktokProductSpecScalarFieldEnum {
+    id
+    name
+    value
+    productId
+}
+
+type TiktokProductImageAvgAggregate {
+    height: Float
+    width: Float
+}
+
+type TiktokProductImageCountAggregate {
+    id: Int!
+    height: Int!
+    width: Int!
+    thumbUrlList: Int!
+    urlList: Int!
+    _all: Int!
+}
+
+type TiktokProductImageMaxAggregate {
+    id: String
+    height: Int
+    width: Int
+}
+
+type TiktokProductImageMinAggregate {
+    id: String
+    height: Int
+    width: Int
+}
+
+type TiktokProductImageSumAggregate {
+    height: Int
+    width: Int
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+@HideOperations all
+"""
+type TiktokProductImage {
+    id: String!
+    height: Int!
+    width: Int!
+    thumbUrlList: [String!]
+    urlList: [String!]
+}
+
+type TiktokProductPriceAvgAggregate {
+    minSkuPrice: Decimal
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal
+    maxOriginalSkuPrice: Decimal
+}
+
+type TiktokProductPriceCountAggregate {
+    id: Int!
+    minSkuPrice: Int!
+    maxSkuPrice: Int!
+    minOriginalSkuPrice: Int!
+    maxOriginalSkuPrice: Int!
+    currency: Int!
+    currencySymbol: Int!
+    isIntervalPrice: Int!
+    originalPriceText: Int!
+    realPriceText: Int!
+    discountText: Int!
+    _all: Int!
+}
+
+type TiktokProductPriceMaxAggregate {
+    id: String
+    minSkuPrice: Decimal
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal
+    maxOriginalSkuPrice: Decimal
+    currency: String
+    currencySymbol: String
+    isIntervalPrice: Boolean
+    originalPriceText: String
+    realPriceText: String
+    discountText: String
+}
+
+type TiktokProductPriceMinAggregate {
+    id: String
+    minSkuPrice: Decimal
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal
+    maxOriginalSkuPrice: Decimal
+    currency: String
+    currencySymbol: String
+    isIntervalPrice: Boolean
+    originalPriceText: String
+    realPriceText: String
+    discountText: String
+}
+
+type TiktokProductPriceSumAggregate {
+    minSkuPrice: Decimal
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal
+    maxOriginalSkuPrice: Decimal
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+@HideOperations all
+"""
+type TiktokProductPrice {
+    id: String!
+    minSkuPrice: Decimal!
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal!
+    maxOriginalSkuPrice: Decimal
+    currency: String!
+    currencySymbol: String!
+    isIntervalPrice: Boolean!
+    originalPriceText: String!
+    realPriceText: String!
+    discountText: String!
+}
+
+type TiktokProductSpecCountAggregate {
+    id: Int!
+    name: Int!
+    value: Int!
+    _all: Int!
+}
+
+type TiktokProductSpecMaxAggregate {
+    id: String
+    name: String
+    value: String
+}
+
+type TiktokProductSpecMinAggregate {
+    id: String
+    name: String
+    value: String
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+@HideOperations all
+"""
+type TiktokProductSpec {
+    id: String!
+    name: String!
+    value: String!
+}
+
+type TiktokSellerAvgAggregate {
+    productCount: Float
+}
+
+type TiktokSellerCountAggregate {
+    id: Int!
+    name: Int!
+    avatar: Int!
+    productCount: Int!
+    link: Int!
+    imSchema: Int!
+    shopRecommendIsRecommend: Int!
+    isHide: Int!
+    originalData: Int!
+    _all: Int!
+}
+
+type TiktokSellerMaxAggregate {
+    id: String
+    name: String
+    productCount: Int
+    link: String
+    imSchema: String
+    shopRecommendIsRecommend: Boolean
+    isHide: Boolean
+}
+
+type TiktokSellerMinAggregate {
+    id: String
+    name: String
+    productCount: Int
+    link: String
+    imSchema: String
+    shopRecommendIsRecommend: Boolean
+    isHide: Boolean
+}
+
+type TiktokSellerSumAggregate {
+    productCount: Int
+}
+
+"""
+@@allow('read', true)
+@@allow('create,read,update,delete', auth().roles?[key == 'ADMIN'])
+@HideOperations create,update
+"""
+type TiktokSeller {
+    id: String!
+    name: String!
+    avatar: JSON!
+    productCount: Int!
+    link: String!
+    imSchema: String!
+    shopRecommendIsRecommend: Boolean!
+    isHide: Boolean!
+    originalData: JSON!
+    products(where: TiktokProductWhereInput, orderBy: [TiktokProductOrderByWithRelationInput!], cursor: TiktokProductWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductScalarFieldEnum!]): [TiktokProduct!]
+}
+
+type UserCountAggregate {
+    id: Int!
+    name: Int!
+    email: Int!
+    _all: Int!
+}
+
+type UserMaxAggregate {
+    id: String
+    name: String
+    email: String
+}
+
+type UserMinAggregate {
+    id: String
+    name: String
+    email: String
+}
+
+"""
+@@allow('read', true)
+@@allow('delete', auth().roles?[key == 'ADMIN'])
+@HideOperations create,update,deleteOne,deleteMany
+"""
+type User {
+    id: String!
+    name: String!
+    email: String!
+    roles(where: RoleWhereInput, orderBy: [RoleOrderByWithRelationInput!], cursor: RoleWhereUniqueInput, take: Int, skip: Int, distinct: [RoleScalarFieldEnum!]): [Role!]
+}
+
+input RoleOrderByWithRelationInput {
+    key: SortOrder
+    users: UserOrderByRelationAggregateInput
+}
+
+input UserOrderByRelationAggregateInput {
+    _count: SortOrder
+}
+
+input RoleWhereUniqueInput {
+    key: RoleKey
+    AND: [RoleWhereInput!]
+    OR: [RoleWhereInput!]
+    NOT: [RoleWhereInput!]
+    users: UserListRelationFilter
+}
+
+enum RoleScalarFieldEnum {
+    key
+}
+
+type Query {
+    user(where: UserWhereUniqueInput!): User
+    users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+    userCount(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): Int!
+    me: User
+    file(where: FileWhereUniqueInput!): File
+    files(where: FileWhereInput, orderBy: [FileOrderByWithRelationInput!], cursor: FileWhereUniqueInput, take: Int, skip: Int, distinct: [FileScalarFieldEnum!]): [File!]!
+    fileCount(where: FileWhereInput, orderBy: [FileOrderByWithRelationInput!], cursor: FileWhereUniqueInput, take: Int, skip: Int, distinct: [FileScalarFieldEnum!]): Int!
+    tiktokProduct(where: TiktokProductWhereUniqueInput!): TiktokProduct
+    tiktokProducts(where: TiktokProductWhereInput, orderBy: [TiktokProductOrderByWithRelationInput!], cursor: TiktokProductWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductScalarFieldEnum!]): [TiktokProduct!]!
+    tiktokProductCount(where: TiktokProductWhereInput, orderBy: [TiktokProductOrderByWithRelationInput!], cursor: TiktokProductWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokProductScalarFieldEnum!]): Int!
+    tiktokSeller(where: TiktokSellerWhereUniqueInput!): TiktokSeller
+    tiktokSellers(where: TiktokSellerWhereInput, orderBy: [TiktokSellerOrderByWithRelationInput!], cursor: TiktokSellerWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokSellerScalarFieldEnum!]): [TiktokSeller!]!
+    tiktokSellerCount(where: TiktokSellerWhereInput, orderBy: [TiktokSellerOrderByWithRelationInput!], cursor: TiktokSellerWhereUniqueInput, take: Int, skip: Int, distinct: [TiktokSellerScalarFieldEnum!]): Int!
+    category(where: CategoryWhereUniqueInput!): Category
+    categories(where: CategoryWhereInput, orderBy: [CategoryOrderByWithRelationInput!], cursor: CategoryWhereUniqueInput, take: Int, skip: Int, distinct: [CategoryScalarFieldEnum!]): [Category!]!
+    categoryCount(where: CategoryWhereInput, orderBy: [CategoryOrderByWithRelationInput!], cursor: CategoryWhereUniqueInput, take: Int, skip: Int, distinct: [CategoryScalarFieldEnum!]): Int!
+    campaign(where: CampaignWhereUniqueInput!): Campaign
+    campaigns(where: CampaignWhereInput, orderBy: [CampaignOrderByWithRelationInput!], cursor: CampaignWhereUniqueInput, take: Int, skip: Int, distinct: [CampaignScalarFieldEnum!]): [Campaign!]!
+    campaignCount(where: CampaignWhereInput, orderBy: [CampaignOrderByWithRelationInput!], cursor: CampaignWhereUniqueInput, take: Int, skip: Int, distinct: [CampaignScalarFieldEnum!]): Int!
+}
+
+input FileWhereUniqueInput {
+    key: String
+    AND: [FileWhereInput!]
+    OR: [FileWhereInput!]
+    NOT: [FileWhereInput!]
+    createdAt: DateTimeFilter
+    updatedAt: DateTimeFilter
+    filename: StringFilter
+    size: IntFilter
+    mimetype: StringFilter
+}
+
+enum FileScalarFieldEnum {
+    key
+    createdAt
+    updatedAt
+    filename
+    size
+    mimetype
+}
+
+input TiktokSellerWhereUniqueInput {
+    id: String
+    AND: [TiktokSellerWhereInput!]
+    OR: [TiktokSellerWhereInput!]
+    NOT: [TiktokSellerWhereInput!]
+    name: StringFilter
+    avatar: JsonFilter
+    productCount: IntFilter
+    link: StringFilter
+    imSchema: StringFilter
+    shopRecommendIsRecommend: BoolFilter
+    isHide: BoolFilter
+    originalData: JsonFilter
+    products: TiktokProductListRelationFilter
+}
+
+enum TiktokSellerScalarFieldEnum {
+    id
+    name
+    avatar
+    productCount
+    link
+    imSchema
+    shopRecommendIsRecommend
+    isHide
+    originalData
+}
+
+type Mutation {
+    registerUserRole(data: RegisterUserRoleInput!): Boolean!
+    createFile(data: FileCreateInput!): File!
+    updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File!
+    deleteFile(where: FileWhereUniqueInput!): File!
+    deleteFiles(where: FileWhereInput): AffectedRows!
+    deleteTiktokProduct(where: TiktokProductWhereUniqueInput!): TiktokProduct!
+    deleteTiktokProducts(where: TiktokProductWhereInput): AffectedRows!
+    createTiktokProductFromLink(data: CreateTiktokProductFromLinkInput!): TiktokProduct!
+    createTiktokProductFromId(data: CreateTiktokProductFromIdInput!): TiktokProduct!
+    deleteTiktokSeller(where: TiktokSellerWhereUniqueInput!): TiktokSeller!
+    deleteTiktokSellers(where: TiktokSellerWhereInput): AffectedRows!
+    createCategory(data: CategoryCreateInput!): Category!
+    updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
+    deleteCategory(where: CategoryWhereUniqueInput!): Category!
+    deleteCategories(where: CategoryWhereInput): AffectedRows!
+    createCampaign(data: CampaignCreateInput!): Campaign!
+    updateCampaign(data: CampaignUpdateInput!, where: CampaignWhereUniqueInput!): Campaign!
+    deleteCampaign(where: CampaignWhereUniqueInput!): Campaign!
+    deleteCampaigns(where: CampaignWhereInput): AffectedRows!
+}
+
+input RegisterUserRoleInput {
+    role: UserRoleCanRegister!
+}
+
+enum UserRoleCanRegister {
+    INFLUENCER
+    SELLER
+}
+
+input FileCreateInput {
+    key: String!
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+input FileUpdateInput {
+    key: String
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+input CreateTiktokProductFromLinkInput {
+    affiliateLink: String
+    commissionPercent: Int
+    link: String!
+}
+
+input CreateTiktokProductFromIdInput {
+    affiliateLink: String
+    commissionPercent: Int
+    id: String!
+}
+
+input CategoryCreateInput {
+    name: String!
+    description: String
+    imageFile: FileCreateNestedOneWithoutCategoriesInput
+    products: TiktokProductCreateNestedManyWithoutCategoriesInput
+}
+
+input FileCreateNestedOneWithoutCategoriesInput {
+    create: FileCreateWithoutCategoriesInput
+    connectOrCreate: FileCreateOrConnectWithoutCategoriesInput
+    connect: FileWhereUniqueInput
+}
+
+input FileCreateWithoutCategoriesInput {
+    key: String!
+    createdAt: DateTime
+    updatedAt: DateTime
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+input FileCreateOrConnectWithoutCategoriesInput {
+    where: FileWhereUniqueInput!
+    create: FileCreateWithoutCategoriesInput!
+}
+
+input TiktokProductCreateNestedManyWithoutCategoriesInput {
+    create: [TiktokProductCreateWithoutCategoriesInput!]
+    connect: [TiktokProductWhereUniqueInput!]
+}
+
+input TiktokProductCreateWithoutCategoriesInput {
+    id: String!
+    affiliateLink: String
+    title: String!
+    soldCount: Int!
+    rating: Float!
+    reviewCount: Int!
+    reviewItems: [JSON!]
+    descDetail: String!
+    commissionPercent: Int
+    price: TiktokProductPriceCreateNestedOneWithoutProductInput
+    images: TiktokProductImageCreateNestedManyWithoutProductInput
+    specifications: TiktokProductSpecCreateNestedManyWithoutProductInput
+    campaings: CampaignCreateNestedManyWithoutProductsInput
+    seller: TiktokSellerCreateNestedOneWithoutProductsInput!
+}
+
+input TiktokProductPriceCreateNestedOneWithoutProductInput {
+    create: TiktokProductPriceCreateWithoutProductInput
+    connect: TiktokProductPriceWhereUniqueInput
+}
+
+input TiktokProductPriceCreateWithoutProductInput {
+    id: String
+    minSkuPrice: Decimal!
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal!
+    maxOriginalSkuPrice: Decimal
+    currency: String!
+    currencySymbol: String!
+    isIntervalPrice: Boolean!
+    originalPriceText: String!
+    realPriceText: String!
+    discountText: String!
+}
+
+input TiktokProductPriceWhereUniqueInput {
+    id: String
+    productId: String
+    AND: [TiktokProductPriceWhereInput!]
+    OR: [TiktokProductPriceWhereInput!]
+    NOT: [TiktokProductPriceWhereInput!]
+    minSkuPrice: DecimalFilter
+    maxSkuPrice: DecimalNullableFilter
+    minOriginalSkuPrice: DecimalFilter
+    maxOriginalSkuPrice: DecimalNullableFilter
+    currency: StringFilter
+    currencySymbol: StringFilter
+    isIntervalPrice: BoolFilter
+    originalPriceText: StringFilter
+    realPriceText: StringFilter
+    discountText: StringFilter
+    product: TiktokProductRelationFilter
+}
+
+input TiktokProductImageCreateNestedManyWithoutProductInput {
+    create: [TiktokProductImageCreateWithoutProductInput!]
+    connect: [TiktokProductImageWhereUniqueInput!]
+}
+
+input TiktokProductImageCreateWithoutProductInput {
+    id: String
+    height: Int!
+    width: Int!
+    thumbUrlList: [String!]
+    urlList: [String!]
+}
+
+input TiktokProductSpecCreateNestedManyWithoutProductInput {
+    create: [TiktokProductSpecCreateWithoutProductInput!]
+    connect: [TiktokProductSpecWhereUniqueInput!]
+}
+
+input TiktokProductSpecCreateWithoutProductInput {
+    id: String
+    name: String!
+    value: String!
+}
+
+input CampaignCreateNestedManyWithoutProductsInput {
+    create: [CampaignCreateWithoutProductsInput!]
+    connect: [CampaignWhereUniqueInput!]
+}
+
+input CampaignCreateWithoutProductsInput {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String!
+    description: String
+    bannerFile: FileCreateNestedOneWithoutCampaignsInput
+}
+
+input FileCreateNestedOneWithoutCampaignsInput {
+    create: FileCreateWithoutCampaignsInput
+    connectOrCreate: FileCreateOrConnectWithoutCampaignsInput
+    connect: FileWhereUniqueInput
+}
+
+input FileCreateWithoutCampaignsInput {
+    key: String!
+    createdAt: DateTime
+    updatedAt: DateTime
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+input FileCreateOrConnectWithoutCampaignsInput {
+    where: FileWhereUniqueInput!
+    create: FileCreateWithoutCampaignsInput!
+}
+
+input TiktokSellerCreateNestedOneWithoutProductsInput {
+    create: TiktokSellerCreateWithoutProductsInput
+    connect: TiktokSellerWhereUniqueInput
+}
+
+input TiktokSellerCreateWithoutProductsInput {
+    id: String!
+    name: String!
+    avatar: JSON!
+    productCount: Int!
+    link: String!
+    imSchema: String!
+    shopRecommendIsRecommend: Boolean!
+    isHide: Boolean!
+    originalData: JSON!
+}
+
+input CategoryUpdateInput {
+    name: String
+    description: String
+    imageFile: FileUpdateOneWithoutCategoriesNestedInput
+    products: TiktokProductUpdateManyWithoutCategoriesNestedInput
+}
+
+input FileUpdateOneWithoutCategoriesNestedInput {
+    create: FileCreateWithoutCategoriesInput
+    connectOrCreate: FileCreateOrConnectWithoutCategoriesInput
+    disconnect: FileWhereInput
+    delete: FileWhereInput
+    connect: FileWhereUniqueInput
+    update: FileUpdateToOneWithWhereWithoutCategoriesInput
+}
+
+input FileUpdateToOneWithWhereWithoutCategoriesInput {
+    where: FileWhereInput
+    data: FileUpdateWithoutCategoriesInput!
+}
+
+input FileUpdateWithoutCategoriesInput {
+    key: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+input TiktokProductUpdateManyWithoutCategoriesNestedInput {
+    create: [TiktokProductCreateWithoutCategoriesInput!]
+    disconnect: [TiktokProductWhereUniqueInput!]
+    delete: [TiktokProductWhereUniqueInput!]
+    connect: [TiktokProductWhereUniqueInput!]
+    update: [TiktokProductUpdateWithWhereUniqueWithoutCategoriesInput!]
+}
+
+input TiktokProductUpdateWithWhereUniqueWithoutCategoriesInput {
+    where: TiktokProductWhereUniqueInput!
+    data: TiktokProductUpdateWithoutCategoriesInput!
+}
+
+input TiktokProductUpdateWithoutCategoriesInput {
+    id: String
+    affiliateLink: String
+    title: String
+    soldCount: Int
+    rating: Float
+    reviewCount: Int
+    reviewItems: [JSON!]
+    descDetail: String
+    commissionPercent: Int
+    price: TiktokProductPriceUpdateOneWithoutProductNestedInput
+    images: TiktokProductImageUpdateManyWithoutProductNestedInput
+    specifications: TiktokProductSpecUpdateManyWithoutProductNestedInput
+    campaings: CampaignUpdateManyWithoutProductsNestedInput
+    seller: TiktokSellerUpdateOneRequiredWithoutProductsNestedInput
+}
+
+input TiktokProductPriceUpdateOneWithoutProductNestedInput {
+    create: TiktokProductPriceCreateWithoutProductInput
+    disconnect: TiktokProductPriceWhereInput
+    delete: TiktokProductPriceWhereInput
+    connect: TiktokProductPriceWhereUniqueInput
+    update: TiktokProductPriceUpdateToOneWithWhereWithoutProductInput
+}
+
+input TiktokProductPriceUpdateToOneWithWhereWithoutProductInput {
+    where: TiktokProductPriceWhereInput
+    data: TiktokProductPriceUpdateWithoutProductInput!
+}
+
+input TiktokProductPriceUpdateWithoutProductInput {
+    id: String
+    minSkuPrice: Decimal
+    maxSkuPrice: Decimal
+    minOriginalSkuPrice: Decimal
+    maxOriginalSkuPrice: Decimal
+    currency: String
+    currencySymbol: String
+    isIntervalPrice: Boolean
+    originalPriceText: String
+    realPriceText: String
+    discountText: String
+}
+
+input TiktokProductImageUpdateManyWithoutProductNestedInput {
+    create: [TiktokProductImageCreateWithoutProductInput!]
+    disconnect: [TiktokProductImageWhereUniqueInput!]
+    delete: [TiktokProductImageWhereUniqueInput!]
+    connect: [TiktokProductImageWhereUniqueInput!]
+    update: [TiktokProductImageUpdateWithWhereUniqueWithoutProductInput!]
+}
+
+input TiktokProductImageUpdateWithWhereUniqueWithoutProductInput {
+    where: TiktokProductImageWhereUniqueInput!
+    data: TiktokProductImageUpdateWithoutProductInput!
+}
+
+input TiktokProductImageUpdateWithoutProductInput {
+    id: String
+    height: Int
+    width: Int
+    thumbUrlList: [String!]
+    urlList: [String!]
+}
+
+input TiktokProductSpecUpdateManyWithoutProductNestedInput {
+    create: [TiktokProductSpecCreateWithoutProductInput!]
+    disconnect: [TiktokProductSpecWhereUniqueInput!]
+    delete: [TiktokProductSpecWhereUniqueInput!]
+    connect: [TiktokProductSpecWhereUniqueInput!]
+    update: [TiktokProductSpecUpdateWithWhereUniqueWithoutProductInput!]
+}
+
+input TiktokProductSpecUpdateWithWhereUniqueWithoutProductInput {
+    where: TiktokProductSpecWhereUniqueInput!
+    data: TiktokProductSpecUpdateWithoutProductInput!
+}
+
+input TiktokProductSpecUpdateWithoutProductInput {
+    id: String
+    name: String
+    value: String
+}
+
+input CampaignUpdateManyWithoutProductsNestedInput {
+    create: [CampaignCreateWithoutProductsInput!]
+    disconnect: [CampaignWhereUniqueInput!]
+    delete: [CampaignWhereUniqueInput!]
+    connect: [CampaignWhereUniqueInput!]
+    update: [CampaignUpdateWithWhereUniqueWithoutProductsInput!]
+}
+
+input CampaignUpdateWithWhereUniqueWithoutProductsInput {
+    where: CampaignWhereUniqueInput!
+    data: CampaignUpdateWithoutProductsInput!
+}
+
+input CampaignUpdateWithoutProductsInput {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    description: String
+    bannerFile: FileUpdateOneWithoutCampaignsNestedInput
+}
+
+input FileUpdateOneWithoutCampaignsNestedInput {
+    create: FileCreateWithoutCampaignsInput
+    connectOrCreate: FileCreateOrConnectWithoutCampaignsInput
+    disconnect: FileWhereInput
+    delete: FileWhereInput
+    connect: FileWhereUniqueInput
+    update: FileUpdateToOneWithWhereWithoutCampaignsInput
+}
+
+input FileUpdateToOneWithWhereWithoutCampaignsInput {
+    where: FileWhereInput
+    data: FileUpdateWithoutCampaignsInput!
+}
+
+input FileUpdateWithoutCampaignsInput {
+    key: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    filename: String
+    size: Int
+    mimetype: String
+}
+
+input TiktokSellerUpdateOneRequiredWithoutProductsNestedInput {
+    create: TiktokSellerCreateWithoutProductsInput
+    connect: TiktokSellerWhereUniqueInput
+    update: TiktokSellerUpdateToOneWithWhereWithoutProductsInput
+}
+
+input TiktokSellerUpdateToOneWithWhereWithoutProductsInput {
+    where: TiktokSellerWhereInput
+    data: TiktokSellerUpdateWithoutProductsInput!
+}
+
+input TiktokSellerUpdateWithoutProductsInput {
+    id: String
+    name: String
+    avatar: JSON
+    productCount: Int
+    link: String
+    imSchema: String
+    shopRecommendIsRecommend: Boolean
+    isHide: Boolean
+    originalData: JSON
+}
+
+input CampaignCreateInput {
+    name: String!
+    description: String
+    bannerFile: FileCreateNestedOneWithoutCampaignsInput
+    products: TiktokProductCreateNestedManyWithoutCampaingsInput
+}
+
+input TiktokProductCreateNestedManyWithoutCampaingsInput {
+    create: [TiktokProductCreateWithoutCampaingsInput!]
+    connect: [TiktokProductWhereUniqueInput!]
+}
+
+input TiktokProductCreateWithoutCampaingsInput {
+    id: String!
+    affiliateLink: String
+    title: String!
+    soldCount: Int!
+    rating: Float!
+    reviewCount: Int!
+    reviewItems: [JSON!]
+    descDetail: String!
+    commissionPercent: Int
+    price: TiktokProductPriceCreateNestedOneWithoutProductInput
+    images: TiktokProductImageCreateNestedManyWithoutProductInput
+    specifications: TiktokProductSpecCreateNestedManyWithoutProductInput
+    categories: CategoryCreateNestedManyWithoutProductsInput
+    seller: TiktokSellerCreateNestedOneWithoutProductsInput!
+}
+
+input CategoryCreateNestedManyWithoutProductsInput {
+    create: [CategoryCreateWithoutProductsInput!]
+    connect: [CategoryWhereUniqueInput!]
+}
+
+input CategoryCreateWithoutProductsInput {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String!
+    description: String
+    imageFile: FileCreateNestedOneWithoutCategoriesInput
+}
+
+input CampaignUpdateInput {
+    name: String
+    description: String
+    bannerFile: FileUpdateOneWithoutCampaignsNestedInput
+    products: TiktokProductUpdateManyWithoutCampaingsNestedInput
+}
+
+input TiktokProductUpdateManyWithoutCampaingsNestedInput {
+    create: [TiktokProductCreateWithoutCampaingsInput!]
+    disconnect: [TiktokProductWhereUniqueInput!]
+    delete: [TiktokProductWhereUniqueInput!]
+    connect: [TiktokProductWhereUniqueInput!]
+    update: [TiktokProductUpdateWithWhereUniqueWithoutCampaingsInput!]
+}
+
+input TiktokProductUpdateWithWhereUniqueWithoutCampaingsInput {
+    where: TiktokProductWhereUniqueInput!
+    data: TiktokProductUpdateWithoutCampaingsInput!
+}
+
+input TiktokProductUpdateWithoutCampaingsInput {
+    id: String
+    affiliateLink: String
+    title: String
+    soldCount: Int
+    rating: Float
+    reviewCount: Int
+    reviewItems: [JSON!]
+    descDetail: String
+    commissionPercent: Int
+    price: TiktokProductPriceUpdateOneWithoutProductNestedInput
+    images: TiktokProductImageUpdateManyWithoutProductNestedInput
+    specifications: TiktokProductSpecUpdateManyWithoutProductNestedInput
+    categories: CategoryUpdateManyWithoutProductsNestedInput
+    seller: TiktokSellerUpdateOneRequiredWithoutProductsNestedInput
+}
+
+input CategoryUpdateManyWithoutProductsNestedInput {
+    create: [CategoryCreateWithoutProductsInput!]
+    disconnect: [CategoryWhereUniqueInput!]
+    delete: [CategoryWhereUniqueInput!]
+    connect: [CategoryWhereUniqueInput!]
+    update: [CategoryUpdateWithWhereUniqueWithoutProductsInput!]
+}
+
+input CategoryUpdateWithWhereUniqueWithoutProductsInput {
+    where: CategoryWhereUniqueInput!
+    data: CategoryUpdateWithoutProductsInput!
+}
+
+input CategoryUpdateWithoutProductsInput {
+    id: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    description: String
+    imageFile: FileUpdateOneWithoutCategoriesNestedInput
+}

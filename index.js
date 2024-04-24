@@ -1,9 +1,20 @@
-/**
- * @format
- */
+import './global.css';
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
+import {Navigation} from 'react-native-navigation';
+import {Text, TextInput} from 'react-native';
+import {didFinishLaunchingApplication} from './src/App';
+import {loadDevMessages, loadErrorMessages} from '@apollo/client/dev';
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.allowFontScaling = false;
+TextInput.defaultProps = Text.defaultProps || {};
+TextInput.defaultProps.allowFontScaling = false;
 
-AppRegistry.registerComponent(appName, () => App);
+if (__DEV__) {
+  // Adds messages only in a dev environment
+  loadDevMessages();
+  loadErrorMessages();
+}
+
+Navigation.events().registerAppLaunchedListener(didFinishLaunchingApplication);
